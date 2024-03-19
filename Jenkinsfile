@@ -36,5 +36,14 @@ pipeline {
                 sh "mvn test"
             }
         }
+        stage("SonarQube Analysis"){
+           steps {
+	           script {
+		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
+                        sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ksal1235_dpt7"
+		        }
+	           }	
+           }
+       }
     }
 }
